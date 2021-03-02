@@ -2,7 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>9.0</LangVersion>
+    <Version>1.0.0</Version>
+    <Authors>Florin Tatu</Authors>
+    <Company>RT Net</Company>
+    <Product />
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>2021</Copyright>
+    <PackageTags>Helpers Result</PackageTags>
+    <PackageReleaseNotes>This is the initial release</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
