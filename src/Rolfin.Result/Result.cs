@@ -16,11 +16,16 @@ namespace Rolfin.Result
             this.Value = result;
         }
 
+        public Result(string message)
+        {
+            this.Message = message;
+        }
 
         private bool isSuccess { get; set; }
 
 
         public T Value { get; private set; }
+        public string Message { get; private set; }
 
         public bool IsSuccess
             => isSuccess;
@@ -36,9 +41,19 @@ namespace Rolfin.Result
             return new Result<T>(result) { isSuccess = true };
         }
 
-        public static Result<T> Invalid(T message)
+        public static Result<R> Success<R>(R result)
         {
-            return new Result<T>(message);
+            return new Result<R>(result) { isSuccess = true };
+        }
+
+        public static Result<T> Invalid(string message)
+        {
+            return new Result<T>(message) { isSuccess = false };
+        }
+
+        public static Result<R> Invalid<R>(R result)
+        {
+            return new Result<R>(result) { isSuccess = false };
         }
 
         public static Result<T> Invalid()

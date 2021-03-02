@@ -10,6 +10,7 @@
     <Copyright>2021</Copyright>
     <PackageTags>Helpers Result</PackageTags>
     <PackageReleaseNotes>This is the initial release</PackageReleaseNotes>
+    <Description>A simple result abstraction.</Description>
   </PropertyGroup>
 
 </Project>
