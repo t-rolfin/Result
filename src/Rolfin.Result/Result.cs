@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rolfin.Result.MetaResponses;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,24 +17,45 @@ namespace Rolfin.Result
             this.Value = result;
         }
 
-        public Result(string message)
-        {
-            this.Message = message;
-        }
-
-        private bool isSuccess { get; set; }
+        private bool isSuccess;
 
 
-        public T Value { get; private set; }
-        public string Message { get; private set; }
+        public T Value { get; protected set; }
+
+        [Obsolete("You can use 'MetaResponse' to customize you messages.")]
+        public string Message { get; protected set; }
+
+        public IMetaResponse MetaResponse { get; protected set; }
+
+
+        public Type GetValueType
+            => typeof(T);
 
         public bool IsSuccess
             => isSuccess;
 
+        /// <summary>
+        /// This helps you to customize your MetaResponse 
+        /// with your own massage, code, and name response
+        /// </summary>
+        /// <typeparam name="CType"> Type of custom MetaResponse </typeparam>
+        /// <param name="metaResponse"> Insance of your custom MetaResponse </param>
+        /// <returns> Result<T> with you custom MetaResponse </returns>
+        public Result<T> With<CType>(CType metaResponse)
+            where CType : IMetaResponse
+        {
+            this.MetaResponse = metaResponse;
+            return this;
+        }
+
 
         public static Result<T> Success()
         {
-            return new Result<T>() { isSuccess = true };
+            return new Result<T>()
+            {
+                isSuccess = true,
+                Value = default(T)
+            };
         }
 
         public static Result<T> Success(T result)
@@ -46,19 +68,28 @@ namespace Rolfin.Result
             return new Result<R>(result) { isSuccess = true };
         }
 
+        public static Result<T> Invalid()
+        {
+            return new Result<T>()
+            {
+                isSuccess = false,
+                Value = default(T)
+            };
+        }
+
         public static Result<T> Invalid(string message)
         {
-            return new Result<T>(message) { isSuccess = false };
+            return new Result<T>()
+            {
+                isSuccess = false,
+                Message = message,
+                MetaResponse = new Custom{ Message = message }
+            };
         }
 
         public static Result<R> Invalid<R>(R result)
         {
             return new Result<R>(result) { isSuccess = false };
-        }
-
-        public static Result<T> Invalid()
-        {
-            return new Result<T>() { isSuccess = false };
         }
 
     }
