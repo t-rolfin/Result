@@ -2,15 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Authors>Florin Tatu</Authors>
     <Company>RT Net</Company>
     <Product />
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>2021</Copyright>
     <PackageTags>Helpers Result</PackageTags>
-    <PackageReleaseNotes>This is the initial release</PackageReleaseNotes>
+    <PackageReleaseNotes>Now the result can be customized with the help of MetaResults, by defaul there are four types of MetaResults and more can be added by using the interface "IMetaResult".
+
+PS: From next version the property "Message" from "Result" will be deleted, instead the property "MetaResult" can be used to return custom messages.</PackageReleaseNotes>
     <Description>A simple result abstraction.</Description>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/t-rolfin/Result</RepositoryUrl>
+    <RepositoryType></RepositoryType>
   </PropertyGroup>
 
 </Project>
