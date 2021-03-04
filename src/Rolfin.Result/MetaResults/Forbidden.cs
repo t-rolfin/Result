@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rolfin.Result.MetaResponses
+namespace Rolfin.Result.MetaResults
 {
-    public class Forbidden : IMetaResponse
+    public class Forbidden : IMetaResult
     {
         public int Code => 403;
         public string Name => "Forbidden";

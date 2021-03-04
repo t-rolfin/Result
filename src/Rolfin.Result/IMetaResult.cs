@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Rolfin.Result
 {
-    public interface IMetaResponse
+    public interface IMetaResult
     {
         int Code { get; }
         string Name { get; }

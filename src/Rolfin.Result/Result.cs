@@ -1,4 +1,4 @@
-﻿using Rolfin.Result.MetaResponses;
+﻿using Rolfin.Result.MetaResults;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,7 +25,7 @@ namespace Rolfin.Result
         [Obsolete("You can use 'MetaResponse' to customize you messages.")]
         public string Message { get; protected set; }
 
-        public IMetaResponse MetaResponse { get; protected set; }
+        public IMetaResult MetaResult { get; protected set; }
 
 
         public Type GetValueType
@@ -42,9 +42,9 @@ namespace Rolfin.Result
         /// <param name="metaResponse"> Insance of your custom MetaResponse </param>
         /// <returns> Result<T> with you custom MetaResponse </returns>
         public Result<T> With<CType>()
-            where CType : IMetaResponse
+            where CType : IMetaResult
         {
-            this.MetaResponse = Activator.CreateInstance<CType>(); ;
+            this.MetaResult = Activator.CreateInstance<CType>(); ;
             return this;
         }
 
@@ -83,7 +83,7 @@ namespace Rolfin.Result
             {
                 isSuccess = false,
                 Message = message,
-                MetaResponse = new Custom{ Message = message }
+                MetaResult = new Custom { Message = message }
             };
         }
 

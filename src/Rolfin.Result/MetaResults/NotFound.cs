@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rolfin.Result.MetaResponses
+namespace Rolfin.Result.MetaResults
 {
-    public class NotFound : IMetaResponse
+    public class NotFound : IMetaResult
     {
         public int Code => 404;
         public string Name => "NotFound";

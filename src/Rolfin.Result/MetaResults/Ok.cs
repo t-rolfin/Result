@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rolfin.Result.MetaResponses
+namespace Rolfin.Result.MetaResults
 {
-    public class Ok : IMetaResponse
+    public class Ok : IMetaResult
     {
         public int Code => 200;
         public string Name => "Ok";

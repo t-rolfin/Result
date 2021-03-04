@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rolfin.Result.MetaResponses
+namespace Rolfin.Result.MetaResults
 {
-    internal class Custom : IMetaResponse
+    internal class Custom : IMetaResult
     {
         public int Code => 0;
 
