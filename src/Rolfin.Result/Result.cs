@@ -41,10 +41,10 @@ namespace Rolfin.Result
         /// <typeparam name="CType"> Type of custom MetaResponse </typeparam>
         /// <param name="metaResponse"> Insance of your custom MetaResponse </param>
         /// <returns> Result<T> with you custom MetaResponse </returns>
-        public Result<T> With<CType>(CType metaResponse)
+        public Result<T> With<CType>()
             where CType : IMetaResponse
         {
-            this.MetaResponse = metaResponse;
+            this.MetaResponse = Activator.CreateInstance<CType>(); ;
             return this;
         }
 
