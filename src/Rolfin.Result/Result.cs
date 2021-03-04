@@ -22,7 +22,7 @@ namespace Rolfin.Result
 
         public T Value { get; protected set; }
 
-        [Obsolete("You can use 'MetaResponse' to customize you messages.")]
+        [Obsolete("You can use 'MetaResult' to customize you messages.")]
         public string Message { get; protected set; }
 
         public IMetaResult MetaResult { get; protected set; }
