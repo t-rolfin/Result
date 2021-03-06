@@ -7,8 +7,6 @@ namespace Rolfin.Result
         Type GetValueType { get; }
         bool IsSuccess { get; }
 
-        [Obsolete]
-        string Message { get; }
         IMetaResult MetaResult { get; }
         T Value { get; }
     }

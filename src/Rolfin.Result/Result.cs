@@ -22,9 +22,6 @@ namespace Rolfin.Result
 
         public T Value { get; protected set; }
 
-        [Obsolete("You can use 'MetaResult' to customize you messages.")]
-        public string Message { get; protected set; }
-
         public IMetaResult MetaResult { get; protected set; }
 
 
@@ -82,7 +79,6 @@ namespace Rolfin.Result
             return new Result<T>()
             {
                 isSuccess = false,
-                Message = message,
                 MetaResult = new Custom { Message = message }
             };
         }
