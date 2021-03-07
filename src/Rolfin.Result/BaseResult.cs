@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rolfin.Result.MetaResults;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,6 +16,7 @@ namespace Rolfin.Result
 
 
         public IMetaResult MetaResult { get; protected set; }
+            = new Ok();
 
 
         public Type GetValueType
