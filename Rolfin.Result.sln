@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rolfin.Result", "src\Rolfin.Result\Rolfin.Result.csproj", "{5D6DA1A9-40E2-436F-B6D3-F40574D8EB54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rolfin.Result", "src\Rolfin.Result\Rolfin.Result.csproj", "{5D6DA1A9-40E2-436F-B6D3-F40574D8EB54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
