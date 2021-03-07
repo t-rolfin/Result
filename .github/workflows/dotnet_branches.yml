@@ -1,0 +1,21 @@
+name: Rolfin.Result - CI BRANCHES
+
+on:
+  push:
+    branches: [ result, paged_result ]
+  pull_request:
+    branches: [ result, paged_result ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x'
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
