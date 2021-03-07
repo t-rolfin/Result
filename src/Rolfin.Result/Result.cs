@@ -9,6 +9,7 @@ namespace Rolfin.Result
     public class Result : Result<string>
     {
         public Result() { }
+
         public Result(string result)
         : base(result) { }
     }
@@ -16,6 +17,7 @@ namespace Rolfin.Result
     public class Result<T> : BaseResult<T>, IResult<T>
     {
         public Result() { }
+
         public Result(T result)
         {
             this.Value = result;
@@ -49,7 +51,8 @@ namespace Rolfin.Result
             return new Result<T>()
             {
                 IsSuccess = false,
-                Value = default(T)
+                Value = default(T),
+                MetaResult = new NotFound()
             };
         }
 
@@ -64,7 +67,11 @@ namespace Rolfin.Result
 
         public static Result<R> Invalid<R>(R result)
         {
-            return new Result<R>(result) { IsSuccess = false };
+            return new Result<R>(result) 
+            { 
+                IsSuccess = false,
+                MetaResult = new NotFound()
+            };
         }
 
     }
