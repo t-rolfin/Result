@@ -25,26 +25,26 @@ namespace Rolfin.Result
         {
             return new Result<T>()
             {
-                isSuccess = true,
+                IsSuccess = true,
                 Value = default(T)
             };
         }
 
         public static Result<T> Success(T result)
         {
-            return new Result<T>(result) { isSuccess = true };
+            return new Result<T>(result) { IsSuccess = true };
         }
 
         public static Result<R> Success<R>(R result)
         {
-            return new Result<R>(result) { isSuccess = true };
+            return new Result<R>(result) { IsSuccess = true };
         }
 
         public static Result<T> Invalid()
         {
             return new Result<T>()
             {
-                isSuccess = false,
+                IsSuccess = false,
                 Value = default(T)
             };
         }
@@ -53,14 +53,14 @@ namespace Rolfin.Result
         {
             return new Result<T>()
             {
-                isSuccess = false,
+                IsSuccess = false,
                 MetaResult = new Custom { Message = message }
             };
         }
 
         public static Result<R> Invalid<R>(R result)
         {
-            return new Result<R>(result) { isSuccess = false };
+            return new Result<R>(result) { IsSuccess = false };
         }
 
     }
