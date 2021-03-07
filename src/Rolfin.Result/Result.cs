@@ -7,7 +7,11 @@ namespace Rolfin.Result
 {
 
     public class Result : Result<string>
-    { }
+    {
+        public Result() { }
+        public Result(string result)
+        : base(result) { }
+    }
 
     public class Result<T> : BaseResult<T>, IResult<T>
     {
