@@ -9,7 +9,7 @@ namespace Rolfin.Result
     public class Result : Result<string>
     { }
 
-    public class Result<T> : IResult<T>
+    public class Result<T> : BaseResult<T>, IResult<T>
     {
         public Result() { }
         public Result(T result)
@@ -17,33 +17,8 @@ namespace Rolfin.Result
             this.Value = result;
         }
 
-        private bool isSuccess;
-
 
         public T Value { get; protected set; }
-
-        public IMetaResult MetaResult { get; protected set; }
-
-
-        public Type GetValueType
-            => typeof(T);
-
-        public bool IsSuccess
-            => isSuccess;
-
-        /// <summary>
-        /// This helps you to customize your MetaResponse 
-        /// with your own massage, code, and name response
-        /// </summary>
-        /// <typeparam name="CType"> Type of custom MetaResponse </typeparam>
-        /// <param name="metaResponse"> Insance of your custom MetaResponse </param>
-        /// <returns> Result<T> with you custom MetaResponse </returns>
-        public Result<T> With<CType>()
-            where CType : IMetaResult
-        {
-            this.MetaResult = Activator.CreateInstance<CType>(); ;
-            return this;
-        }
 
 
         public static Result<T> Success()
