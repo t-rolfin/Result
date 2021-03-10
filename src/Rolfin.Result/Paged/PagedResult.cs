@@ -12,13 +12,14 @@ namespace Rolfin.Result.Paged
         { 
             List = null;
             PageInfo = default;
-            MetaResult = new Custom();
+            MetaResult = new Ok();
         }
+
         public PagedResult(PageInfo pageInfo, IEnumerable<T> list)
         {
             List = list;
             PageInfo = pageInfo;
-            MetaResult = new Custom();
+            MetaResult = new Ok();
         }
 
 

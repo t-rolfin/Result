@@ -22,13 +22,16 @@ namespace Rolfin.Result.Paged
         public int TotalRecords { get; private set; }
 
 
-        public void SetPageNumber(int pageNumber)
+        public PageInfo SetPageNumber(int pageNumber)
         {
             this.PageNumber = pageNumber;
+            return this;
         }
-        public void SetPageSize(int pageSize)
+
+        public PageInfo SetPageSize(int pageSize)
         {
             this.PageSize = pageSize;
+            return this;
         }
     }
 }
