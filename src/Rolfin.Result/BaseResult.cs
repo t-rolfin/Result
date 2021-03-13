@@ -8,7 +8,7 @@ namespace Rolfin.Result
     public abstract class BaseResult<T>
         where T : BaseResult<T>
     {
-        private bool isSuccess;
+        private bool isSuccess = true;
         public bool IsSuccess
         {
             get { return IsSuccess; }
