@@ -14,7 +14,7 @@ namespace Rolfin.Result
         : base(result) { }
     }
 
-    public class Result<T> : BaseResult<T>, IResult<T>
+    public class Result<T> : BaseResult<Result<T>>, IResult<T>
     {
         public Result() { }
 
@@ -25,6 +25,10 @@ namespace Rolfin.Result
 
 
         public T Value { get; protected set; }
+
+
+        public override Type GetValueType()
+            => typeof(T);
 
 
         public static Result<T> Success()
@@ -56,12 +60,13 @@ namespace Rolfin.Result
             };
         }
 
+        [Obsolete("Soon this will be not longer available, can use instead Invalid() with With() method which gets message as parameter.")]
         public static Result<T> Invalid(string message)
         {
             return new Result<T>()
             {
                 IsSuccess = false,
-                MetaResult = new Custom { Message = message }
+                MetaResult = new NotFound { Message = message }
             };
         }
 
