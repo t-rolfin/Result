@@ -8,6 +8,6 @@ namespace Rolfin.Result.MetaResults
     {
         public int Code => 404;
         public string Name => "NotFound";
-        public string Message => "No items found!";
+        public string Message { get; set; } = "No items found!";
     }
 }
