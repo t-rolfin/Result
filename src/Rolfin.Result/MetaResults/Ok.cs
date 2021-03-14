@@ -8,6 +8,6 @@ namespace Rolfin.Result.MetaResults
     {
         public int Code => 200;
         public string Name => "Ok";
-        public string Message => "The request was processed with success!";
+        public string Message { get; set; } = "The request was processed with success!";
     }
 }
