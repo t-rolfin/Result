@@ -32,6 +32,54 @@ namespace Rolfin.Result
         public static implicit operator Result<T>(T value)
             => Success<T>(value);
 
+
+        public override bool Equals(object obj)
+        {
+
+            if (obj == null)
+                return false;
+
+            if (typeof(IMetaResult).IsAssignableFrom(obj.GetType()) 
+                && obj.GetType() == this.MetaResult.GetType())
+            {
+                return true;
+            }
+
+            if(obj.GetType() == typeof(Result<T>))
+            {
+                var otherObj = (Result<T>)obj;
+
+                if (otherObj?.MetaResult.GetType() != this?.MetaResult.GetType())
+                    return false;
+
+                return otherObj.MetaResult.Code == this.MetaResult.Code;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.MetaResult.GetHashCode() ^ Value.GetHashCode();
+        }
+
+        public static bool operator ==(Result<T> lr, Result<T> rr)
+        {
+            if(ReferenceEquals(lr, null) && ReferenceEquals(rr, null))
+                return true;
+
+            if (ReferenceEquals(lr, rr))
+                return true;
+
+            return false;
+        }
+
+        public static bool operator !=(Result<T> lr, Result<T> rr)
+        {
+            return !(lr == rr);
+        }
+
+
         public override Type GetValueType()
             => typeof(T);
 
