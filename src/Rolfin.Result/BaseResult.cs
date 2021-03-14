@@ -6,8 +6,9 @@ using System.Text;
 namespace Rolfin.Result
 {
     public abstract class BaseResult<T>
+        where T : BaseResult<T>
     {
-        private bool isSuccess;
+        private bool isSuccess = true;
         public bool IsSuccess
         {
             get { return IsSuccess; }
@@ -19,21 +20,45 @@ namespace Rolfin.Result
             = new Ok();
 
 
-        public Type GetValueType
-            => typeof(T);
+        public abstract Type GetValueType();
+
 
         /// <summary>
-        /// This helps you to customize your MetaResponse 
+        /// This helps to customize your MetaResponse 
         /// with your own massage, code, and name response
         /// </summary>
         /// <typeparam name="CType"> Type of custom MetaResponse </typeparam>
-        /// <param name="metaResponse"> Insance of your custom MetaResponse </param>
-        /// <returns> Result<T> with you custom MetaResponse </returns>
-        public virtual BaseResult<T> With<CType>()
+        /// <param name="metaResponse"></param>
+        /// <returns></returns>
+        public T With<CType>()
             where CType : IMetaResult
         {
             this.MetaResult = Activator.CreateInstance<CType>();
-            return this;
+            return (T)this;
+        }
+
+        public T With<CType>(string message)
+            where CType : IMetaResult
+        {
+            this.MetaResult = Activator.CreateInstance<CType>();
+
+            if (!string.IsNullOrWhiteSpace(message))
+                this.MetaResult.Message = message;
+
+            return (T)this;
+        }
+
+        /// <summary>
+        /// This helps to replace default message with a custom one.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public T With(string message)
+        {
+            if (!string.IsNullOrWhiteSpace(message))
+                this.MetaResult.Message = message;
+
+            return (T)this;
         }
     }
 }

@@ -72,6 +72,18 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
             Assert.Equal(expectedResult.Code, result.MetaResult.Code);
         }
 
+        //[Fact]
+        //public void GenericResult_ShouldNotChangeMetaMessage_WhenUseWithMethodWithCustomMessage()
+        //{
+        //    NotFound expectedResult = new NotFound();
+        //    string expectedMessage = "expected message";
+
+        //    var result = Result<object>.Invalid(expectedMessage)
+        //        .With<NotFound>();
+
+        //    Assert.Equal(expectedMessage, result.MetaResult.Message);
+        //}
+
         [Fact]
         public void GenericResult_ShouldReturnNotFound_WhenInvalidFactoryCall()
         {
@@ -101,7 +113,7 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
             var result = Result<object>.Invalid(expectedMessage);
 
             Assert.Equal(expectedMessage, result.MetaResult.Message);
-            Assert.Equal(0, result.MetaResult.Code);
+            Assert.Equal(new NotFound().Code, result.MetaResult.Code);
         }
 
         [Fact]
@@ -109,9 +121,9 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
         {
             NotFound expectedMetaResult = new NotFound();
 
-            var result = Result.Invalid<CustomMetaResult>(new CustomMetaResult());
+            var result = Result<Ok>.Invalid(new CustomMetaResult());
 
-            Assert.Equal(typeof(CustomMetaResult), result.GetValueType);
+            Assert.Equal(typeof(CustomMetaResult), result.GetValueType());
             Assert.Equal(expectedMetaResult.Code, result.MetaResult.Code);
         }
 
@@ -144,8 +156,19 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
 
             var result = Result.Success(new CustomMetaResult());
 
-            Assert.Equal(typeof(CustomMetaResult), result.GetValueType);
+            Assert.Equal(typeof(CustomMetaResult), result.GetValueType());
             Assert.Equal(expectedMetaResult.Code, result.MetaResult.Code);
+        }
+
+        [Fact]
+        public void Result_ShouldReturnCustomMetaResultMessage_WhenUseWithMethodWithMessageParameter()
+        {
+            string expectedMessage = "New Ok message.";
+
+            var result = Result<object>.Success()
+                .With<Ok>(expectedMessage);
+
+            Assert.Equal(expectedMessage, result.MetaResult.Message);
         }
     }
 }

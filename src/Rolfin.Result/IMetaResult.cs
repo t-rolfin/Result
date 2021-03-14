@@ -8,6 +8,6 @@ namespace Rolfin.Result
     {
         int Code { get; }
         string Name { get; }
-        string Message { get; }
+        string Message { get; set; }
     }
 }
