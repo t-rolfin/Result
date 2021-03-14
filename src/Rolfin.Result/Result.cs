@@ -27,6 +27,11 @@ namespace Rolfin.Result
         public T Value { get; protected set; }
 
 
+        public static implicit operator T(Result<T> result)
+            => result.Value;
+        public static implicit operator Result<T>(T value)
+            => Success<T>(value);
+
         public override Type GetValueType()
             => typeof(T);
 
