@@ -12,7 +12,7 @@
 The purpose of this "little" library is to identify the possibility of failures in the contract of a function.
 
 # How to use
-[Here](https://github.com/t-rolfin/Result/wiki/How-to-use#structure-of-result) can be found the documentation.
+[Here](https://t-rolfin.github.io/Result/) can be found the documentation.
 
 # License
 See [MIT](https://github.com/t-rolfin/Result/blob/main/LICENSE) 
