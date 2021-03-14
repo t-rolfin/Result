@@ -58,8 +58,18 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
         {
             var result = new Result<object>(value);
 
-            Assert.Equal(new Ok().Code, result.MetaResult.Code);
+            Assert.True(result.Equals(new Ok()));
             Assert.Equal(value, result.Value);
+        }
+
+        [Fact]
+        public void GenericResult_ShouldReturnCustomMessage_WithBaseTypeOfMetaResult()
+        {
+            string expectedMessage = "Expected message.";
+            var result = Result<object>.Invalid().With(expectedMessage);
+
+            Assert.Equal(expectedMessage, result.MetaResult.Message);
+            Assert.Equal(new NotFound().GetType(), result.MetaResult.GetType());
         }
 
         [Fact]
@@ -69,20 +79,8 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
 
             var result = new Result<object>().With<NotFound>();
 
-            Assert.Equal(expectedResult.Code, result.MetaResult.Code);
+            Assert.True(result.Equals(expectedResult));
         }
-
-        //[Fact]
-        //public void GenericResult_ShouldNotChangeMetaMessage_WhenUseWithMethodWithCustomMessage()
-        //{
-        //    NotFound expectedResult = new NotFound();
-        //    string expectedMessage = "expected message";
-
-        //    var result = Result<object>.Invalid(expectedMessage)
-        //        .With<NotFound>();
-
-        //    Assert.Equal(expectedMessage, result.MetaResult.Message);
-        //}
 
         [Fact]
         public void GenericResult_ShouldReturnNotFound_WhenInvalidFactoryCall()
@@ -91,7 +89,7 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
 
             var result = Result<object>.Invalid();
 
-            Assert.Equal(expectedResult.Code, result.MetaResult.Code);
+            Assert.True(result.Equals(expectedResult));
         }
 
         [Fact]
@@ -102,7 +100,7 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
             var result = Result<object>.Invalid()
                 .With<CustomMetaResult>();
 
-            Assert.Equal(expectedMetaResult.Code, result.MetaResult.Code);
+            Assert.True(result.Equals(expectedMetaResult));
         }
 
         [Fact]
@@ -113,18 +111,18 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
             var result = Result<object>.Invalid(expectedMessage);
 
             Assert.Equal(expectedMessage, result.MetaResult.Message);
-            Assert.Equal(new NotFound().Code, result.MetaResult.Code);
+            Assert.True(result.Equals(new NotFound()));
         }
 
         [Fact]
         public void Result_ShouldReturnInvalidCustomResultType_WhenCallInvalidWhitCustomType()
         {
-            NotFound expectedMetaResult = new NotFound();
+            NotFound expectedResult = new NotFound();
 
             var result = Result<Ok>.Invalid(new CustomMetaResult());
 
             Assert.Equal(typeof(CustomMetaResult), result.GetValueType());
-            Assert.Equal(expectedMetaResult.Code, result.MetaResult.Code);
+            Assert.True(result.Equals(expectedResult));
         }
 
         [Fact]
@@ -134,7 +132,7 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
 
             var result = Result<object>.Success();
 
-            Assert.Equal(expectedResult.Code, result.MetaResult.Code);
+            Assert.True(result.Equals(expectedResult));
         }
 
         [Fact]
@@ -145,19 +143,19 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
 
             var result = Result<object>.Success(expectedObject);
 
-            Assert.Equal(expectedResult.Code, result.MetaResult.Code);
+            Assert.True(result.Equals(expectedResult));
             Assert.Equal(expectedObject, result.Value);
         }
 
         [Fact]
         public void Result_ShouldReturnSuccessCustomResultType_WhenCallSuccessWhitCustomType()
         {
-            Ok expectedMetaResult = new Ok();
+            Ok expectedResult = new Ok();
 
             var result = Result.Success(new CustomMetaResult());
 
             Assert.Equal(typeof(CustomMetaResult), result.GetValueType());
-            Assert.Equal(expectedMetaResult.Code, result.MetaResult.Code);
+            Assert.True(result.Equals(expectedResult));
         }
 
         [Fact]
@@ -170,5 +168,6 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
 
             Assert.Equal(expectedMessage, result.MetaResult.Message);
         }
+
     }
 }
