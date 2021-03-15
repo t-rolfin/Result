@@ -8,16 +8,20 @@ namespace Rolfin.Result
     public abstract class BaseResult<T>
         where T : BaseResult<T>
     {
-        private bool isSuccess = true;
+        public BaseResult()
+        {
+            MetaResult = new Ok();
+            isSuccess = true;
+        }
+
+        private bool isSuccess;
         public bool IsSuccess
         {
-            get { return IsSuccess; }
+            get { return isSuccess; }
             protected set { isSuccess = value; }
         }
 
-
         public IMetaResult MetaResult { get; protected set; }
-            = new Ok();
 
 
         public abstract Type GetValueType();
