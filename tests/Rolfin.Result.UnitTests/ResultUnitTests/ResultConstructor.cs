@@ -19,6 +19,7 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
             var result = new Result(expectedResult);
 
             Assert.Equal(expectedResult, result.Value);
+            Assert.True(result.IsSuccess);
         }
 
         [Fact]
@@ -70,6 +71,7 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
 
             Assert.Equal(expectedMessage, result.MetaResult.Message);
             Assert.Equal(new NotFound().GetType(), result.MetaResult.GetType());
+            Assert.False(result.IsSuccess);
         }
 
         [Fact]
