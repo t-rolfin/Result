@@ -1,6 +1,7 @@
 ﻿using Rolfin.Result.MetaResults;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace Rolfin.Result
@@ -51,48 +52,24 @@ namespace Rolfin.Result
 
         public override bool Equals(object obj)
         {
-
-            if (obj == null)
+            if (obj is null)
                 return false;
 
-            if (typeof(IMetaResult).IsAssignableFrom(obj.GetType()) 
-                && obj.GetType() == this.MetaResult.GetType())
-            {
+            if (obj is IMetaResult && obj.GetType() == this.MetaResult.GetType())
                 return true;
-            }
 
-            if(obj.GetType() == typeof(Result<T>))
-            {
-                var otherObj = (Result<T>)obj;
+            var metaResult = obj.GetType()
+                .GetProperty("MetaResult")
+                .GetValue(obj);
 
-                if (otherObj?.MetaResult.GetType() != this?.MetaResult.GetType())
-                    return false;
-
-                return otherObj.MetaResult.Code == this.MetaResult.Code;
-            }
-
-            return false;
+            return metaResult.GetType() == this?.MetaResult.GetType()
+                ? true
+                : false;
         }
 
         public override int GetHashCode()
         {
-            return this.MetaResult.GetHashCode() ^ Value.GetHashCode();
-        }
-
-        public static bool operator ==(Result<T> lr, Result<T> rr)
-        {
-            if(ReferenceEquals(lr, null) && ReferenceEquals(rr, null))
-                return true;
-
-            if (ReferenceEquals(lr, rr))
-                return true;
-
-            return false;
-        }
-
-        public static bool operator !=(Result<T> lr, Result<T> rr)
-        {
-            return !(lr == rr);
+            return MetaResult.GetHashCode() ^ Value.GetHashCode();
         }
 
 

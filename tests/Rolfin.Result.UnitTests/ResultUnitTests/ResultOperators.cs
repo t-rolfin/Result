@@ -131,15 +131,22 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
             Assert.True(result.Equals(new Ok()));
         }
 
-        [Theory]
-        [InlineData(typeof(int))]
-        [InlineData("string")]
-        [InlineData(32)]
-        public void Content_ShouldReturnFalse_WhenPassOtherTypeThemResultOrMetaResult(object type)
+        [Fact]
+        public void Content_ShouldReturnTrue_WhenResultTypeIsDifferent_ButMetaResultAreTheSameType()
         {
-            var result = Result<int>.Success();
+            var result = Result<object>.Success();
+            var result1 = Result<int>.Success();
 
-            Assert.False(result.Equals(type));
+            Assert.True(result.Equals(result1));
+        }
+
+        [Fact]
+        public void Content_ShouldReturnFalse_WhenHaveDifferentTypesAndMetaResults()
+        {
+            var result = Result<object>.Success();
+            var result1 = Result<string>.Invalid();
+
+            Assert.False(result.Equals(result1));
         }
     }
 }
