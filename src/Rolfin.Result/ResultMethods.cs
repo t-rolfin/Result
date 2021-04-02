@@ -36,16 +36,6 @@ namespace Rolfin.Result
             };
         }
 
-        [Obsolete("Soon this will be not longer available, can use instead Invalid() with With() method which gets message as parameter.")]
-        public static Result<T> Invalid(string message)
-        {
-            return new Result<T>()
-            {
-                IsSuccess = false,
-                MetaResult = new NotFound { Message = message }
-            };
-        }
-
         public static Result<R> Invalid<R>(R result)
         {
             return new Result<R>(result)

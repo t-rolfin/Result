@@ -106,17 +106,6 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
         }
 
         [Fact]
-        public void GenericResult_ShouldReturnCustomInvaldResult_WhenCallInvalidWithMessage()
-        {
-            string expectedMessage = "Custom invalid message.";
-
-            var result = Result<object>.Invalid(expectedMessage);
-
-            Assert.Equal(expectedMessage, result.MetaResult.Message);
-            Assert.True(result.Equals(new NotFound()));
-        }
-
-        [Fact]
         public void Result_ShouldReturnInvalidCustomResultType_WhenCallInvalidWhitCustomType()
         {
             NotFound expectedResult = new NotFound();
