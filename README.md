@@ -91,7 +91,7 @@ _and_
 ``` csharp
 var result = Result<CustomModel>.Invalid().With("Other message.");
 ```
-Both will return an `NotFound` MetaResult with different messages. 
+Both will return a `NotFound` MetaResult with different messages. 
 
 * Return other MetaResult them the default version
 ``` csharp
