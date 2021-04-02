@@ -60,7 +60,6 @@ public static Result<T> Success(T result);
 public static Result<R> Success<R>(R result);
 
 public static Result<T> Invalid();
-public static Result<T> Invalid(string message);
 public static Result<T> Invalid(T result);
 ```
 The "Success" methods will return a MetaResult of type Ok, while the "Invalid" methods will return [NotFound](https://github.com/t-rolfin/Result/blob/main/src/Rolfin.Result/MetaResults/NotFound.cs).
