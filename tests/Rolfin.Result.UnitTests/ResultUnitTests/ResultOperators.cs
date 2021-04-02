@@ -148,5 +148,14 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
 
             Assert.False(result.Equals(result1));
         }
+
+        [Fact]
+        public void Equals_ShouldReturnFalse_WhenCompareASuccessResultWithOtherSuccesResultWithCustomMetaResult()
+        {
+            var result = Result<object>.Success();
+            var customResult = Result<string>.Invalid().With<OtherSuccessResult>();
+
+            Assert.False(result.Equals(customResult));
+        }
     }
 }
