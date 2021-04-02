@@ -1,6 +1,7 @@
 ﻿using Rolfin.Result.MetaResults;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace Rolfin.Result
@@ -8,71 +9,71 @@ namespace Rolfin.Result
 
     public class Result : Result<string>
     {
-        public Result() { }
+        public Result() : base() { }
 
         public Result(string result)
         : base(result) { }
     }
 
-    public class Result<T> : BaseResult<T>, IResult<T>
+    public partial class Result<T> : BaseResult<Result<T>>, IResult<T>
     {
-        public Result() { }
-
-        public Result(T result)
+        internal Result(T value, IMetaResult metaResult)
         {
-            this.Value = result;
+            this.Value = value;
+            base.MetaResult = metaResult;
+        }
+
+        public Result() : base() { }
+
+        public Result(T value) : base()
+        {
+            this.Value = value;
         }
 
 
         public T Value { get; protected set; }
 
 
-        public static Result<T> Success()
+        public static implicit operator T(Result<T> result)
+            => result.Value;
+
+        public static implicit operator Result<T>(T value)
         {
-            return new Result<T>()
+            if(value is Result<T> result)
             {
-                IsSuccess = true,
-                Value = default(T)
-            };
+                IMetaResult meta = result.IsSuccess ? new Ok() : default;
+                T resultValue = result.IsSuccess ? result.Value : default;
+
+                return new Result<T>(resultValue, meta);
+            }
+
+            return Success(value);
         }
 
-        public static Result<T> Success(T result)
+        public override bool Equals(object obj)
         {
-            return new Result<T>(result) { IsSuccess = true };
+            if (obj is null)
+                return false;
+
+            if (obj is IMetaResult && obj.GetType() == this.MetaResult.GetType())
+                return true;
+
+            var metaResult = obj.GetType()
+                .GetProperty("MetaResult")
+                .GetValue(obj);
+
+            return metaResult.GetType() == this?.MetaResult.GetType()
+                ? true
+                : false;
         }
 
-        public static Result<R> Success<R>(R result)
+        public override int GetHashCode()
         {
-            return new Result<R>(result) { IsSuccess = true };
+            return MetaResult.GetHashCode() ^ Value.GetHashCode();
         }
 
-        public static Result<T> Invalid()
-        {
-            return new Result<T>()
-            {
-                IsSuccess = false,
-                Value = default(T),
-                MetaResult = new NotFound()
-            };
-        }
 
-        public static Result<T> Invalid(string message)
-        {
-            return new Result<T>()
-            {
-                IsSuccess = false,
-                MetaResult = new Custom { Message = message }
-            };
-        }
-
-        public static Result<R> Invalid<R>(R result)
-        {
-            return new Result<R>(result) 
-            { 
-                IsSuccess = false,
-                MetaResult = new NotFound()
-            };
-        }
-
+        public override Type GetValueType()
+            => typeof(T);
     }
 }

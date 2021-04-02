@@ -8,6 +8,6 @@ namespace Rolfin.Result.MetaResults
     {
         public int Code => 403;
         public string Name => "Forbidden";
-        public string Message => "You are not allowed to access this information.";
+        public string Message { get; set; } = "You are not allowed to access this information.";
     }
 }

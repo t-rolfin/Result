@@ -8,6 +8,6 @@ namespace Rolfin.Result.UnitTests.Resources
     {
         public int Code => 22;
         public string Name => "No items available!";
-        public string Message => "You don't have items in your feed.";
+        public string Message { get; set; } = "You don't have items in your feed.";
     }
 }
