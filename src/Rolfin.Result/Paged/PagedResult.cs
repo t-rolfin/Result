@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Rolfin.Result.Paged
 {
-    public class PagedResult<T> : BaseResult<T>, IPagedResult<T>
+    public class PagedResult<T> : BaseResult<PagedResult<T>>
     {
-        public PagedResult() 
+        public PagedResult() : base()
         { 
             List = null;
             PageInfo = default;
@@ -55,16 +55,9 @@ namespace Rolfin.Result.Paged
             };
         }
 
-        public static PagedResult<T> Invalid(string message)
+        public override Type GetValueType()
         {
-            return new PagedResult<T>()
-            {
-                IsSuccess = false,
-                List = null,
-                PageInfo = default,
-                MetaResult = new Custom { Message = message }
-            };
+            return typeof(T);
         }
-
     }
 }
