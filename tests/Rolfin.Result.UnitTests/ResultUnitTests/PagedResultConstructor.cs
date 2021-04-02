@@ -72,15 +72,6 @@ namespace Rolfin.Result.UnitTests.ResultUnitTests
         }
 
         [Fact]
-        public void ShouldHaveCustomMessage_WhenCreateWithInvalidMethodWithMessage()
-        {
-            var expectedMessage = "Test message";
-            var pagedResult = PagedResult<object>.Invalid(expectedMessage);
-
-            Assert.Equal(expectedMessage, pagedResult.MetaResult.Message);
-        }
-
-        [Fact]
         public void ShouldReturnOkMetaResult_WhenUseSuccessMethod()
         {
             var pagedResult = PagedResult<object>.Success(testPagedInfo, testList);
