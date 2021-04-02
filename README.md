@@ -105,4 +105,54 @@ var result = Result<CustomModel>.Invalid().With<MyNewError>("Other message then 
 ```
 **All above examples are available for every static method.**
 
+# Equality
+
+Now the results can be compared base on their `MetaResult` type.
+You can do this with the help of `Equals` method.
+
+```csharp
+var result = Result<object>.Success();
+var result1 = Result<int>.Success();
+
+// this will return true
+result.Equals(result1);
+```
+
+In case that you are using a custom `MetaResult` for one of the results, `Equals` method will return `false` as result. Like in below example:
+```csharp
+var result = Result<object>.Success();
+var customResult = Result<int>.Success().With<CustomResult>();
+
+// this will return false
+result.Equals(customResult);
+```
+
+It happens because the `Equals` method compares the types of `MetaResult` from these two results.
+
+Other think you can do is to compare a result with a `MetaResult`, like:
+```csharp
+var result = Result<object>.Success();
+
+//this will return true
+result.Equals(new Ok());
+```
+
+# Conversion
+
+From now on an object can be converted into a success result of the object type.
+```csharp
+var value = new Person();
+Result<Person> result = value;
+```
+The `Value`(if you don't know what `Value` is read more about it [here](https://github.com/t-rolfin/Result/wiki/How-to-use#structure-of-result)) of `result` will be of type `Person` and will contain all the data.
+
+Also you can extract the `Value` value of the result.
+```csharp
+// let say we have a success result with `Value` of type `Person`
+var result = Result<Person>.Success(new Person());
+
+Person person = result;
+```
+The `person` will contain all the data of `Value` property from `result`.
+
 I hope you enjoy playing with this library.
